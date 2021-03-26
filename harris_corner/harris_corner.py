@@ -5,15 +5,10 @@ import numpy as np
 def Corner_Response(gdx2, gdy2, gdxy, alpha):
     r = np.array(gdx2)
 
-    # r[2,-2] = (gdx2[2,-2] * gdy2[2,-2] - gdxy[2,-2] * gdxy[2,-2]) - alpha*(gdx2[2,-2] + gdy2[2,-2])*(gdx2[2,-2] + gdy2[2,-2])
-    # r[:,:] = (gdx2[:,:] * gdy2[:,:] - gdxy[:,:] * gdxy[:,:]) - alpha*(gdx2[:,:] + gdy2[:,:])*(gdx2[:,:] + gdy2[:,:])
     r[:,:] = (gdx2[:,:] * gdy2[:,:]) - alpha * ((gdx2 + gdy2)*(gdx2 + gdy2))
     
     return r
 
-# def Determinant():
-
-# def Trace():
 
 def Threshold(r, threshold):
     corners = np.zeros(r.shape)
@@ -55,35 +50,6 @@ def Sobel(Image):
             dxy[i,j] = tx * ty
 
     return dx2, dy2, dxy
-
-# def Gaussian(dx2, dy2, dxy):
-#     gaussian_filter = np.array([[1,4,7,4,1],[4,16,26,16,4],[7,26,41,26,7],[4,16,26,16,4],[1,4,7,4,1]], dtype=float)
-#     gaussian_filter[:,:] = gaussian_filter[:,:] / float(273)
-#     print(gaussian_filter)
-#     dx2 = np.array(dx2)
-#     dy2 = np.array(dy2)
-#     dxy = np.array(dxy)
-    
-#     gdx2 = np.array(dx2)
-#     gdy2 = np.array(dy2)
-#     gdxy = np.array(dxy)
-
-#     tx2, ty2, txy = 0, 0, 0
-#     for i in range(2, dx2.shape[0] -2):
-#         for j in range(2, dx2.shape[1] - 2):
-#             x_window = dx2[i-2:i+3, j-2:j+3]
-#             y_window = dy2[i-2:i+3, j-2:j+3]
-#             xy_window = dxy[i-2:i+3, j-2:j+3]
-
-#             tx2 = tx2 + int(np.sum(x_window[:,:] * gaussian_filter[:,:]))
-#             ty2 = ty2 + int(np.sum(y_window[:,:] * gaussian_filter[:,:]))
-#             txy = txy + int(np.sum(xy_window[:,:] * gaussian_filter[:,:]))
-
-#             gdx2[i,j] = tx2
-#             gdy2[i,j] = ty2
-#             gdxy[i,j] = txy
-
-#     return gdx2, gdy2, gdxy
 
 def Gaussian(Image):
     gaussian_filter = np.array([[1,4,7,4,1],[4,16,26,16,4],[7,26,41,26,7],[4,16,26,16,4],[1,4,7,4,1]], dtype=float)
